@@ -1,3 +1,2 @@
 missingno
 plotly
-chart-studio
