@@ -1,2 +1,3 @@
-# Exploratory-Data-Analysis
-This repository consists of all the EDA's which I have performed on some interesting datasets in order tell the story embedded in the dataset.
+# Exploratory-Data-Analysis  
+
+- This repository provides a collection of all the Exploratory Data Analysis which is performed on some interesting datasets in order to generate insights and also to tell the story through those insights.
