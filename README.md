@@ -5,7 +5,7 @@
 -------------------------------------------------------------------
 ## **1. Introduction**
 
-- This repository provides a collection of all the jupyter/colab notebooks which consists of exploratory data analysis performed on datasets of interest in order to generate insights and give the viewer an understanding of the data and patterns present through engaging visualisations.  
+- This repository provides a collection of all the jupyter/colab notebooks which consists of exploratory data analysis performed on datasets of interest to generate insights and give the viewer an understanding of the data and patterns present through engaging visualizations built using python data visualization libraries.
 
 ## **2. Notebook Collection Index**  
 |Sr. No| Analysis Headline | Data-Source | Notebook Viewer Link | Published Article Link|  
