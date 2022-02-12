@@ -10,21 +10,17 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.expressions.Window
 
 val bitcoin_data_path =
-  "file:///home/striker/Desktop/My-Git-Repositories/Exploratory-Data-Analysis/Analysis-of-Cryptocurrency-Using-Apache-Spark/Datasets/bitcoin.csv"
+  "file:///home/striker/Desktop/My-Git-Repositories/Exploratory-Data-Analysis/Analysis-of-Crypto-Assets-Using-Apache-Spark/Datasets/bitcoin.csv"
 val ethereum_data_path =
-  "file:///home/striker/Desktop/My-Git-Repositories/Exploratory-Data-Analysis/Analysis-of-Cryptocurrency-Using-Apache-Spark/Datasets/ethereum.csv"
+  "file:///home/striker/Desktop/My-Git-Repositories/Exploratory-Data-Analysis/Analysis-of-Crypto-Assets-Using-Apache-Spark/Datasets/ethereum.csv"
 val cardano_data_path =
-  "file:///home/striker/Desktop/My-Git-Repositories/Exploratory-Data-Analysis/Analysis-of-Cryptocurrency-Using-Apache-Spark/Datasets/cardano.csv"
+  "file:///home/striker/Desktop/My-Git-Repositories/Exploratory-Data-Analysis/Analysis-of-Crypto-Assets-Using-Apache-Spark/Datasets/cardano.csv"
 
-val bitcoin_df = spark.read
-  .options(Map("header" -> "true", "inferSchema" -> "true"))
-  .csv(bitcoin_data_path)
-val ethereum_df = spark.read
-  .options(Map("header" -> "true", "inferSchema" -> "true"))
-  .csv(ethereum_data_path)
-val cardano_df = spark.read
-  .options(Map("header" -> "true", "inferSchema" -> "true"))
-  .csv(cardano_data_path)
+val bitcoin_df = spark.read.options(Map("header" -> "true", "inferSchema" -> "true")).csv(bitcoin_data_path)
+
+val ethereum_df = spark.read.options(Map("header" -> "true", "inferSchema" -> "true")).csv(ethereum_data_path)
+
+val cardano_df = spark.read.options(Map("header" -> "true", "inferSchema" -> "true")).csv(cardano_data_path)
 
 bitcoin_df.printSchema()
 ethereum_df.printSchema()
@@ -46,6 +42,7 @@ val bitcoin_final_df = bitcoin_df
       .over(Window.partitionBy().orderBy("SNo"))) / col("Close")) * 100.0
   )
   .drop("SNo")
+
 val ethereum_final_df = ethereum_df
   .withColumn("Date", to_date($"Date", to_date_pattern))
   .withColumn("Year", year(col("Date")))
@@ -57,6 +54,7 @@ val ethereum_final_df = ethereum_df
       .over(Window.partitionBy().orderBy("SNo"))) / col("Close")) * 100.0
   )
   .drop("SNo")
+
 val cardano_final_df = cardano_df
   .withColumn("Date", to_date($"Date", to_date_pattern))
   .withColumn("Year", year(col("Date")))
@@ -142,11 +140,7 @@ bitcoin_fy21_df.createOrReplaceTempView("Bitcoin_FY21")
 ethereum_fy21_df.createOrReplaceTempView("Ethereum_FY21")
 cardano_fy21_df.createOrReplaceTempView("Cardano_FY21")
 
-val crypto_fy21_df = sql_context
-  .sql(
-    "SELECT ETH.Date as Date, BTC.Close as BTC_Close, ETH.Close as ETH_Close, CAD.Close as CAD_Close FROM Bitcoin_FY21 BTC INNER JOIN Ethereum_FY21 ETH ON BTC.Date == ETH.Date INNER JOIN Cardano_FY21 CAD ON ETH.Date == CAD.Date"
-  )
-  .withColumnRenamed("Close", "BTC_Close")
+val crypto_fy21_df = sql_context.sql("SELECT ETH.Date as Date, BTC.Close as BTC_Close, ETH.Close as ETH_Close, CAD.Close as CAD_Close FROM Bitcoin_FY21 BTC INNER JOIN Ethereum_FY21 ETH ON BTC.Date == ETH.Date INNER JOIN Cardano_FY21 CAD ON ETH.Date == CAD.Date").withColumnRenamed("Close", "BTC_Close")
 
 crypto_fy21_df.show()
 
