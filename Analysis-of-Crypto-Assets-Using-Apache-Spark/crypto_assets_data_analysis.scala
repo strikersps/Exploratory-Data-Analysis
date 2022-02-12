@@ -94,6 +94,7 @@ ethereum_final_df.createOrReplaceTempView("ethereum")
 cardano_final_df.createOrReplaceTempView("cardano")
 
 bitcoin_final_df.stat.corr("Close", "Marketcap")
+ethereum_final_df.stat.corr("Close", "Marketcap")
 cardano_final_df.stat.corr("Close", "Marketcap")
 
 val bitcoin_year_avg_df = bitcoin_final_df
