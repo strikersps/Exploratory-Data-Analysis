@@ -86,13 +86,6 @@ ethereum_final_df.count
 println("Total Number of Observations In Cardano Dataset\n")
 cardano_final_df.count
 
-val sql_context = new org.apache.spark.sql.SQLContext(sc)
-
-// Converting all the final dataframes into table view so that we can execute SQL queries on it.
-bitcoin_final_df.createOrReplaceTempView("bitcoin")
-ethereum_final_df.createOrReplaceTempView("ethereum")
-cardano_final_df.createOrReplaceTempView("cardano")
-
 bitcoin_final_df.stat.corr("Close", "Marketcap")
 ethereum_final_df.stat.corr("Close", "Marketcap")
 cardano_final_df.stat.corr("Close", "Marketcap")
@@ -142,12 +135,19 @@ bitcoin_fy21_df.show()
 ethereum_fy21_df.show()
 cardano_fy21_df.show()
 
+val sql_context = new org.apache.spark.sql.SQLContext(sc)
+
+// Converting all the final dataframes into table view so that we can execute SQL queries on it.
+bitcoin_final_df.createOrReplaceTempView("bitcoin")
+ethereum_final_df.createOrReplaceTempView("ethereum")
+cardano_final_df.createOrReplaceTempView("cardano")
+
 val crypto_fy21_df = sql_context
   .sql(
     "SELECT ETH.Date as Date, BTC.Close as BTC_Close, ETH.Close as ETH_Close, CAD.Close as CAD_Close FROM Bitcoin_FY21 BTC INNER JOIN Ethereum_FY21 ETH ON BTC.Date == ETH.Date INNER JOIN Cardano_FY21 CAD ON ETH.Date == CAD.Date"
   )
   .withColumnRenamed("Close", "BTC_Close")
-crypto_fy21_df.createOrReplaceTempView("Crypto_FY21")
+
 crypto_fy21_df.show()
 
 crypto_fy21_df.stat.corr("BTC_Close", "ETH_Close")
