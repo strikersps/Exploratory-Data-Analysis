@@ -31,6 +31,8 @@ ethereum_df.printSchema()
 cardano_df.printSchema()
 
 bitcoin_df.show()
+ethereum_df.show()
+cardano_df.show()
 
 val to_date_pattern = "MM/dd/yyyy"
 val bitcoin_final_df = bitcoin_df
