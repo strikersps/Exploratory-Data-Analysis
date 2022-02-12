@@ -138,9 +138,9 @@ cardano_fy21_df.show()
 val sql_context = new org.apache.spark.sql.SQLContext(sc)
 
 // Converting all the final dataframes into table view so that we can execute SQL queries on it.
-bitcoin_final_df.createOrReplaceTempView("bitcoin")
-ethereum_final_df.createOrReplaceTempView("ethereum")
-cardano_final_df.createOrReplaceTempView("cardano")
+bitcoin_fy21_df.createOrReplaceTempView("Bitcoin_FY21")
+ethereum_fy21_df.createOrReplaceTempView("Ethereum_FY21")
+cardano_fy21_df.createOrReplaceTempView("Cardano_FY21")
 
 val crypto_fy21_df = sql_context
   .sql(
