@@ -80,9 +80,6 @@ cardano_final_df.show()
 println("Total Number of Observations In Bitcoin Dataset\n")
 bitcoin_final_df.count
 
-println("Total Number of Observations In Bitcoin Dataset\n")
-bitcoin_final_df.count
-
 println("Total Number of Observations In Ethereum Dataset\n")
 ethereum_final_df.count
 
